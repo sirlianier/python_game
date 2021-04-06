@@ -1,13 +1,14 @@
 import sys
 import pygame
+from settings import Settings
 
 def run_game():
     # init game and create display object
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    game_settings = Settings()
+    screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
     pygame.display.set_caption("Example Game")
     # backround color
-    bg_color = (238,238,228)
 
     while True:
         # control keyboard and mouse events
@@ -15,7 +16,7 @@ def run_game():
             if event.type == pygame.QUIT:
                 sys.exit()
         # add screen backround
-        screen.fill(bg_color)
+        screen.fill(game_settings.bg_color)
         # display the last screen
         pygame.display.flip()
 # test game
