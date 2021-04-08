@@ -9,7 +9,7 @@ def run_game():
     # init game and create display object
     pygame.init()
     game_settings = Settings()
-    screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
+    screen = pygame.display.set_mode=((game_settings.screen_width, game_settings.screen_height))
     pygame.display.set_caption("Example Game")
 
     # create ship
@@ -24,5 +24,6 @@ def run_game():
             if bullet.rect.bottom <= 0:
                 bullets.remove(bullet)
         gf.update_screen(game_settings, screen, ship, bullets)
+
 # test game
 run_game()
