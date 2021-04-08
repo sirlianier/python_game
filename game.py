@@ -24,6 +24,5 @@ def run_game():
             if bullet.rect.bottom <= 0:
                 bullets.remove(bullet)
         gf.update_screen(game_settings, screen, ship, bullets)
-
 # test game
 run_game()
