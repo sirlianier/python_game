@@ -64,19 +64,28 @@ def get_number_aliens_x(game_settings, alien_width):
     number_aliens_x = int(available_space_x / (2 * alien_width))
     return number_aliens_x
 
-def create_alien(game_settings, screen, aliens, alien_number):
+def get_number_rows(game_settings, ship_height, alien_height):
+    """Define number of rows on screen"""
+    available_space_y = game_settings.screen_height - 3 * alien_height - ship_height
+    number_rows = int(available_space_y / (2 * alien_height))
+    return number_rows
+
+def create_alien(game_settings, screen, aliens, alien_number, row_number):
     # create alien and put it into row
     alien = Alien(game_settings, screen)
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alen_wdth * alien_number
     alien.rect.x = alien.x
+    alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
     aliens.add(alien)
 
-def create_fleet(game_settings, screen, aliens):
+def create_fleet(game_settings, screen, ship, aliens):
     """Create aliens fleet"""
     # Create aliens and compute how much can exists the row
     alien = Alien(game_settings, screen)
     get_number_aliens_x = get_number_aliens_x(game_settings, alien.rect.width)
+    number_rows = get_number_rows(game_settings, ship.rect.heght, alien.rect.height)
     # create first row
+    for row_number in range(number_rows):
     for alien_number in range(number_aliens_x):
-        create_alien(game_settings, screen, aliens, alien_number)
+        create_alien(game_settings, screen, aliens, alien_number, row_number)

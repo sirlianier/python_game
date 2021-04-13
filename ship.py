@@ -21,7 +21,6 @@ class Ship():
         if self.moving_left and self.rect.left > 0:
             self.center -= self.game_settings.ship_speed_factor
         self.rect.centerx = self.center
-
     def blitme(self):
         """Draw ship at this position"""
         self.screen.blit(self.image, self.rect)
