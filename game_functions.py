@@ -2,6 +2,7 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
+from time import sleep
 
 def check_keydown_events(event,game_settings, screen, ship, bullets):
     """Check key down events"""
@@ -52,14 +53,14 @@ def update_bullets(game_settings, screen, ship, aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-   check_bullet_alien_collisions((game_settings, screen, ship, aliens, bullets)
+    check_bullet_alien_collisions(game_settings, screen, ship, aliens, bullets)
 
-   def check_bullet_alien_collisions(game_settings, screen, ship, aliens, bullets):
-       collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
-       # Remove bullets and create new fleet
-       if len(aliens) == 0:
-           bullets.empty()
-           create_fleet(game_settings, screen, ship, aliens)
+def check_bullet_alien_collisions(game_settings, screen, ship, aliens, bullets):
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    # Remove bullets and create new fleet
+    if len(aliens) == 0:
+        bullets.empty()
+        create_fleet(game_settings, screen, ship, aliens)
 
 def fire_bullet(game_settings, screen, ship, bullets):
     if len(bullets) < game_settings.bullets_allowed:
@@ -109,7 +110,23 @@ def check_fleet_edges(game_settings, aliens):
         alien.rect.y += game_settings.fleet_drop_speed
     game_settings.fleet_direction *= -1
 
-def update_aliens(game_settings, aliens):
+def update_aliens(game_settings, stats, screen, ship, alines, bullets):
     """Update aliens position"""
-    check_fleet_edges(game_settings, aliens)
+    check_fleet_edges(game_settings, aliens
     aliens.update()
+    # Check collisions between ship and alien
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(game_settings, stats, screen, ship, alines, bullets)
+
+def ship_hit(game_settings, stats, screen, ship, alines, bullets):
+    # ships left m,inus one
+    stats.ships_left = stats.ships_left -1
+    # aliens and bullets groups are empty
+    aliens.empty()
+    bullets.empty()
+    # create new aliens fleet
+    create_fleet(game_settings, screen, ship, aliens)
+    # center ship
+    ship.ship_center()
+    # pause
+    sleep(2)
