@@ -52,11 +52,14 @@ def update_bullets(game_settings, screen, ship, aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
-    # Remove bullets and create new fleet
-    if len(aliens) == 0:
-        bullets.empty()
-        create_fleet(game_settingd, screen, ship, aliens)
+   check_bullet_alien_collisions((game_settings, screen, ship, aliens, bullets)
+
+   def check_bullet_alien_collisions(game_settings, screen, ship, aliens, bullets):
+       collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+       # Remove bullets and create new fleet
+       if len(aliens) == 0:
+           bullets.empty()
+           create_fleet(game_settings, screen, ship, aliens)
 
 def fire_bullet(game_settings, screen, ship, bullets):
     if len(bullets) < game_settings.bullets_allowed:
