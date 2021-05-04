@@ -121,17 +121,20 @@ def update_aliens(game_settings, stats, screen, ship, alines, bullets):
     check_aliens_bottom(game_settings, stats, screen, ship, alines, bullets)
 
 def ship_hit(game_settings, stats, screen, ship, alines, bullets):
-    # ships left m,inus one
-    stats.ships_left = stats.ships_left -1
-    # aliens and bullets groups are empty
-    aliens.empty()
-    bullets.empty()
-    # create new aliens fleet
-    create_fleet(game_settings, screen, ship, aliens)
-    # center ship
-    ship.ship_center()
-    # pause
-    sleep(2)
+    if stats.ships_left > 0:
+        # ships left minus one
+        stats.ships_left = stats.ships_left -1
+        # aliens and bullets groups are empty
+        aliens.empty()
+        bullets.empty()
+        # create new aliens fleet
+        create_fleet(game_settings, screen, ship, aliens)
+        # center ship
+        ship.ship_center()
+        # pause
+        sleep(2)
+    else:
+        stats.game_active = False
 
 def check_aliens_bottom(game_settings, stats, screen, ship, alines, bullets):
     screen_rect = screen.get_rect()
